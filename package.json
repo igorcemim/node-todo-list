@@ -1,0 +1,26 @@
+{
+  "name": "todo-list-api",
+  "version": "1.0.0",
+  "description": "TODO list API :)",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/nodemon index.js",
+    "fix": "./node_modules/.bin/standard --fix",
+    "test": "echo 'No tests available'"
+  },
+  "keywords": [
+    "todo",
+    "list"
+  ],
+  "author": "Igor",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "consign": "^0.1.6",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "standard": "^12.0.1"
+  }
+}
