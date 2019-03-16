@@ -1,21 +1,6 @@
 const Todo = require('../models/todo')
-const { param, query, body, validationResult } = require('express-validator/check')
-
-const idValidator = () => {
-  return [
-    param('id')
-      .isUUID()
-      .withMessage('O parâmetro é do tipo UUID')
-  ]
-}
-
-const pageValidator = () => {
-  return [
-    query('page')
-      .isInt()
-      .withMessage('O parâmetro é do tipo inteiro')
-  ]
-}
+const { body } = require('express-validator/check')
+const { idValidator, pageValidator, validate, validators } = require('../core/validation')
 
 const todoValidator = () => {
   return [
@@ -29,25 +14,12 @@ const todoValidator = () => {
   ]
 }
 
-const validators = (original, ...args) => {
-  return original.concat(...args)
-}
-
 const loadEntity = async (request, response, model) => {
   const entity = await model().findByPk(request.params.id)
   if (!entity) {
     response.status(404).end()
   }
   return entity
-}
-
-const validate = (request, response) => {
-  const result = validationResult(request)
-  if (!result.isEmpty()) {
-    response.status(400).json({
-      'errors': result.array()
-    })
-  }
 }
 
 const paginator = (model, page, pageSize = 10) => {
