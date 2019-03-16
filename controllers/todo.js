@@ -4,8 +4,8 @@ const { param, body, validationResult } = require('express-validator/check')
 const idValidator = () => {
   return [
     param('id')
-      .isInt()
-      .withMessage('O parâmetro é do tipo inteiro')
+      .isUUID()
+      .withMessage('O parâmetro é do tipo UUID')
   ]
 }
 
