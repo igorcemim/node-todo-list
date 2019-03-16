@@ -1,5 +1,5 @@
-const orm = require('../core/orm')
-const Sequelize = require('sequelize')
+import orm from '../core/orm'
+import Sequelize from 'sequelize'
 
 const Todo = orm.define('todo', {
   uuid: {

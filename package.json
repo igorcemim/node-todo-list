@@ -4,7 +4,8 @@
   "description": "TODO list API :)",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/nodemon index.js",
+    "start": "./node_modules/.bin/nodemon --exec ./node_modules/.bin/babel-node index.js",
+    "start-debug": "./node_modules/.bin/nodemon --exec ./node_modules/.bin/babel-node index.js --debug",
     "fix": "./node_modules/.bin/standard --fix",
     "sync": "node cli/sync.js",
     "test": "echo 'No tests available'"
@@ -24,6 +25,10 @@
     "sequelize": "^5.1.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4",
     "nodemon": "^1.18.10",
     "standard": "^12.0.1"
   }
