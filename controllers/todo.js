@@ -42,19 +42,30 @@ const validate = (request, response) => {
   }
 }
 
-module.exports = function (app) {
-  app.get('/v1/todo', async function (request, response) {
-    const page = parseInt(request.query.page) || 1
-    const pageSize = 10
-    const offset = (page - 1) * pageSize
-    const todos = await Todo().findAll({ limit: pageSize, offset: offset })
-    response.json({
-      'items': todos,
-      'pagination': {
-        'total': await Todo().count(),
+const paginator = (model, page, pageSize = 10) => {
+  return {
+    paginate: async () => {
+      const offset = (page - 1) * pageSize
+      return model().findAll({ limit: pageSize, offset: offset })
+    },
+    info: async () => {
+      return {
+        'total': await model().count(),
         'pageSize': pageSize,
         'page': page
       }
+    }
+  }
+}
+
+module.exports = function (app) {
+  app.get('/v1/todo', async function (request, response) {
+    const page = parseInt(request.query.page) || 1
+    const todoPaginator = paginator(Todo, page)
+    const todos = await todoPaginator.paginate()
+    response.json({
+      'items': todos,
+      'pagination': await todoPaginator.info()
     })
   })
 
