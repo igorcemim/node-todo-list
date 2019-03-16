@@ -1,11 +1,19 @@
 const Todo = require('../models/todo')
-const { param, body, validationResult } = require('express-validator/check')
+const { param, query, body, validationResult } = require('express-validator/check')
 
 const idValidator = () => {
   return [
     param('id')
       .isUUID()
       .withMessage('O parâmetro é do tipo UUID')
+  ]
+}
+
+const pageValidator = () => {
+  return [
+    query('page')
+      .isInt()
+      .withMessage('O parâmetro é do tipo inteiro')
   ]
 }
 
@@ -59,7 +67,8 @@ const paginator = (model, page, pageSize = 10) => {
 }
 
 module.exports = function (app) {
-  app.get('/v1/todo', async function (request, response) {
+  app.get('/v1/todo', pageValidator(), async function (request, response) {
+    validate(request, response)
     const page = parseInt(request.query.page) || 1
     const todoPaginator = paginator(Todo, page)
     const todos = await todoPaginator.paginate()
