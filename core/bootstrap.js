@@ -9,6 +9,7 @@ module.exports = () => {
 
   consign()
     .include('controllers')
+    .then('models')
     .into(app)
 
   return app
