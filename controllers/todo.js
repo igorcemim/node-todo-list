@@ -24,7 +24,7 @@ const loadEntity = async (request, response, model) => {
 const validate = (request, response) => {
   const result = validationResult(request)
   if (!result.isEmpty()) {
-    response.status(422).json({
+    response.status(400).json({
       'errors': result.array()
     })
   }
@@ -48,7 +48,7 @@ module.exports = function (app) {
     const todo = await Todo().create({
       'value': request.body.value
     })
-    response.json(todo)
+    response.status(201).json(todo)
   })
 
   app.put('/v1/todo/:id', todoValidator(), async function (request, response) {
