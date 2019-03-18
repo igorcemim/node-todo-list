@@ -1,5 +1,6 @@
-const bootstrap = require('./src/core/bootstrap')
-const useErrorMiddleware = require('./src/core/error')
+import bootstrap from './src/core/bootstrap'
+import useErrorMiddleware from './src/core/error'
+
 const app = bootstrap()
 
 app.listen(3000, () => {

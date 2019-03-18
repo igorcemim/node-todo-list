@@ -3,7 +3,7 @@ import Todo from '../models/todo'
 
 class TodoService extends CrudService {
   constructor (app) {
-    super(app, Todo())
+    super(app, Todo(app))
   }
 }
 
